@@ -1,4 +1,4 @@
-package life
+package main
 
 type Position struct {
 	X int
