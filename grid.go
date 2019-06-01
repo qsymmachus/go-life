@@ -6,8 +6,10 @@ import (
 	"time"
 )
 
+// A Grid is a two-dimensional array of Cells.
 type Grid [][]Cell
 
+// Prints a Grid.
 func (g Grid) String() string {
 	str := ""
 
@@ -19,6 +21,11 @@ func (g Grid) String() string {
 	}
 
 	return str
+}
+
+// Retrieves a Cell at a given position in the grid.
+func (g Grid) GetCell(p Position) Cell {
+	return g[p.Y][p.X]
 }
 
 // Generates a grid with the specified width and height, and Cells with random initial state.

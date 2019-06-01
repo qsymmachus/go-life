@@ -2,6 +2,19 @@ package main
 
 import "testing"
 
+func TestGetCell(t *testing.T) {
+	p := Position{1, 0}
+	grid := Grid{
+		[]Cell{{Alive: true, Position: Position{0, 0}}, {Alive: false, Position: p}},
+	}
+	want := Cell{Alive: false, Position: p}
+	got := grid.GetCell(p)
+
+	if got != want {
+		t.Errorf("Did not retrieve expected cell at position %s; got %s", p, got.Position)
+	}
+}
+
 func TestStringGrid(t *testing.T) {
 	grid := Grid{
 		[]Cell{{Alive: true}, {Alive: false}, {Alive: true}},
