@@ -28,6 +28,34 @@ func (g Grid) GetCell(p Position) Cell {
 	return g[p.Y][p.X]
 }
 
+// Returns the neighbors of a given cell in the grid.
+//
+// For the game of life, we use the Moore neighborhood.
+// See: https://en.wikipedia.org/wiki/Moore_neighborhood
+func (g Grid) GetNeighbors(c Cell) []Cell {
+	neighboringPositions := []Position{
+		Position{c.Position.X - 1, c.Position.Y - 1},
+		Position{c.Position.X, c.Position.Y - 1},
+		Position{c.Position.X + 1, c.Position.Y - 1},
+		Position{c.Position.X - 1, c.Position.Y},
+		Position{c.Position.X + 1, c.Position.Y},
+		Position{c.Position.X - 1, c.Position.Y + 1},
+		Position{c.Position.X, c.Position.Y + 1},
+		Position{c.Position.X + 1, c.Position.Y + 1},
+	}
+
+	var neighbors []Cell
+	for _, position := range neighboringPositions {
+		if position.IsOffGrid() {
+			continue
+		}
+
+		neighbors = append(neighbors, g.GetCell(position))
+	}
+
+	return neighbors
+}
+
 // Generates a grid with the specified width and height, and Cells with random initial state.
 // The 'liveness' parameter determines what % of cells will be alive on the grid.
 func RandomGrid(width, height, liveness int) Grid {
