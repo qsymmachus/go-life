@@ -46,7 +46,7 @@ func (g Grid) GetNeighbors(c Cell) []Cell {
 
 	var neighbors []Cell
 	for _, position := range neighboringPositions {
-		if position.IsOffGrid() {
+		if g.IsOffGrid(position) {
 			continue
 		}
 
@@ -54,6 +54,11 @@ func (g Grid) GetNeighbors(c Cell) []Cell {
 	}
 
 	return neighbors
+}
+
+// Checks if a position is "off grid", beyond either the X or Y dimensions of the grid.
+func (g Grid) IsOffGrid(pos Position) bool {
+	return (pos.X < 0 || pos.Y < 0) || (pos.X > len(g[0])-1 || pos.Y > len(g)-1)
 }
 
 // Generates a grid with the specified width and height, and Cells with random initial state.

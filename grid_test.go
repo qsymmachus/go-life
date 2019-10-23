@@ -45,6 +45,30 @@ func TestGetNeighbors(t *testing.T) {
 	}
 }
 
+func TestIsOffGrid(t *testing.T) {
+	grid := Grid{
+		[]Cell{{Position{0, 0}, true}, {Position{1, 0}, false}, {Position{2, 0}, true}},
+		[]Cell{{Position{0, 1}, true}, {Position{1, 1}, false}, {Position{2, 1}, true}},
+		[]Cell{{Position{0, 2}, true}, {Position{1, 2}, false}, {Position{2, 2}, true}},
+	}
+
+	positionOnGrid := Position{1, 0}
+	positionXOffGrid := Position{3, 1}
+	positionYOffGrid := Position{2, 4}
+
+	if grid.IsOffGrid(positionOnGrid) != false {
+		t.Errorf("A position on grid was reported to be off grid")
+	}
+
+	if grid.IsOffGrid(positionXOffGrid) != true {
+		t.Errorf("A position off grid on X axis was reported to be on grid")
+	}
+
+	if grid.IsOffGrid(positionYOffGrid) != true {
+		t.Errorf("A position off grid on Y axis was reported to be on grid")
+	}
+}
+
 func TestStringGrid(t *testing.T) {
 	grid := Grid{
 		[]Cell{{Alive: true}, {Alive: false}, {Alive: true}},

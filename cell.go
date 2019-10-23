@@ -7,11 +7,6 @@ type Position struct {
 	Y int
 }
 
-// Checks if a position is "off grid", that is, either X or Y is less than zero.
-func (p Position) IsOffGrid() bool {
-	return p.X < 0 || p.Y < 0
-}
-
 type Cell struct {
 	Position Position
 	Alive    bool
